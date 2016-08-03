@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<script>
+		/* Return a new array that transforms the element's average altitude into their orbital periods.
+		   
+		   The array will contain objects in the format:
+		   {name:'name,avgAlt:avgAlt}
+
+		   The values should be rounded to the nearest whole number.
+	
+		   The body being orbitted is Earth.
+		   The radius of the earth is 6367.4447 kilometers, and the GM value of earth is 398600.4418 km^3s^-2. */
+
+	
+	</script>
+	<style>
+		#intro{
+			text-align : center;
+		}	
+	</style>
+</head>
+<body>
+	<div id="intro">
+		<h1>Orbital Period Calc</h1>
+		<p>Returns a new array that transforms the element's average altitude into their orbital periods.</p>
+		<p>The orbital period is the time taken for a given object to make one complete orbit around another object.</p>
+		<p>T = 2pi(sqrt((semi-major axis ^ 3)/(Gravitational Constant)*(Mass of the more massive body)))</p>	
+	</div>
+	<form id="inputForm">
+		<div id='varName'>
+			<label>Name: <input type='text' name='object' id='inputObject' value='Input Name Here'></label>
+		</div>
+		<div id='varAvgAlt'>
+			<label>Altitude: <input type='number' name='avgAlt' id='objectAlt' value='0'></label>
+		</div>
+		<div id="submitButton">
+			<input type='button' id='actualButton' value='Calculate Orbital Period'>
+		</div>
+	</form>
+	<div id="results">
+		<p>Results Here</p>
+	</div>
+	<script>
+		//GlobalVars
+		var arr = {name:'name', avgAlt: 0};
+
+		//references
+		var inputObject = document.getElementById("inputObject");
+		var objectAlt = document.getElementById("objectAlt");
+		
+		//Functions
+		function orbitalPeriod(arr){
+			var orbitalPeriod = 0;
+			var t = 0;
+			var earthRadius = 6367.4447;
+			var sGrav = 398600.4418;
+			
+			var a = ((objectAlt.value * 2) + (earthRadius * 2));
+			console.log(objectAlt.value);
+			console.log(a);
+
+			t = Math.pow(a,3);
+			t = t/sGrav;
+			t = Math.sqrt(t);
+			t = t * (2*Math.PI);
+			t = Math.round(t);
+			
+			return t;
+
+		}
+		
+		function printVar(){
+			console.log("in printVar");
+			console.log(inputObject);
+			arr.name = inputObject.value;
+			arr.avgAlt = objectAlt.value;
+			
+			console.log(arr);
+			document.getElementById("results").innerHTML = arr.name + " " + arr.avgAlt;
+		}
+		
+		function refreshRef(){
+			arr[name] = inputObject.value;
+			arr[avgAlt] = objectAlt.value;
+		}
+
+		//OnLoad
+		console.log("page load");
+
+		
+		//eventHandlers
+		document.getElementById("actualButton").onclick = function(){
+			printVar();
+		};
+
+	</script>
+</body>
+</html>
